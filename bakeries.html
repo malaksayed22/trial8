@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bakeries - Coffee&Co.</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: url("assets/bg.jpg") fixed repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .dessert-container {
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .dessert-image {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(192, 129, 61, 0.9);
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition:
+          background 0.3s ease,
+          transform 0.2s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(192, 129, 61, 1);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <button class="back-btn" onclick="history.back()">← Back</button>
+
+    <div class="dessert-container">
+      <img
+        src="assets/categories/bakeries.jpg"
+        alt="Bakery"
+        class="dessert-image"
+      />
+    </div>
+  </body>
+</html>

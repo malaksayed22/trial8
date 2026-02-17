@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desserts - Coffee&Co.</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: url("assets/bg.jpg") fixed repeat;
+        overflow: hidden;
+      }
+
+      .slider-container {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .slider-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .slide {
+        min-width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        padding: 40px 20px;
+      }
+
+      .dessert-image {
+        max-width: 600px;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(192, 129, 61, 0.9);
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition:
+          background 0.3s ease,
+          transform 0.2s ease;
+        z-index: 10;
+      }
+
+      .back-btn:hover {
+        background: rgba(192, 129, 61, 1);
+        transform: translateY(-2px);
+      }
+
+      .pagination-dots {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .dot.active {
+        background: rgba(192, 129, 61, 1);
+      }
+
+      .nav-arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(192, 129, 61, 0.9);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+      }
+
+      .nav-arrow:hover {
+        background: rgba(192, 129, 61, 1);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .nav-arrow.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .arrow-left {
+        left: 20px;
+      }
+
+      .arrow-right {
+        right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="back-btn" onclick="history.back()">← Back</button>
+
+    <button
+      class="nav-arrow arrow-left hidden"
+      id="leftArrow"
+      onclick="navigateSlide(-1)"
+    >
+      ←
+    </button>
+    <button
+      class="nav-arrow arrow-right"
+      id="rightArrow"
+      onclick="navigateSlide(1)"
+    >
+      →
+    </button>
+
+    <div class="slider-container" id="slider">
+      <div class="slide">
+        <img
+          src="assets/categories/hotDrinks1.jpg"
+          alt="HotDrinks"
+          class="dessert-image"
+        />
+      </div>
+      <div class="slide">
+        <img
+          loading="lazy"
+          src="assets/categories/hotDrinks2.jpg"
+          alt="HotDrinks"
+          class="dessert-image"
+        />
+      </div>
+      <div class="slide">
+        <img
+          loading="lazy"
+          src="assets/categories/hotAdditions.jpg"
+          alt="HotDrinks"
+          class="dessert-image"
+        />
+      </div>
+    </div>
+
+    <div class="pagination-dots">
+      <div class="dot active" onclick="goToSlide(0)"></div>
+      <div class="dot" onclick="goToSlide(1)"></div>
+      <div class="dot" onclick="goToSlide(2)"></div>
+    </div>
+
+    <script>
+      const slider = document.getElementById("slider");
+      const dots = document.querySelectorAll(".dot");
+      const leftArrow = document.getElementById("leftArrow");
+      const rightArrow = document.getElementById("rightArrow");
+      const totalSlides = 3;
+
+      function updateDots() {
+        const scrollLeft = slider.scrollLeft;
+        const slideWidth = slider.offsetWidth;
+        const currentIndex = Math.round(scrollLeft / slideWidth);
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentIndex);
+        });
+
+        updateArrows(currentIndex);
+      }
+
+      function updateArrows(currentIndex) {
+        // First slide: show only right arrow
+        if (currentIndex === 0) {
+          leftArrow.classList.add("hidden");
+          rightArrow.classList.remove("hidden");
+        }
+        // Last slide: show only left arrow
+        else if (currentIndex === totalSlides - 1) {
+          leftArrow.classList.remove("hidden");
+          rightArrow.classList.add("hidden");
+        }
+        // Middle slides: show both arrows
+        else {
+          leftArrow.classList.remove("hidden");
+          rightArrow.classList.remove("hidden");
+        }
+      }
+
+      function navigateSlide(direction) {
+        const slideWidth = slider.offsetWidth;
+        const currentScroll = slider.scrollLeft;
+        const currentIndex = Math.round(currentScroll / slideWidth);
+        const newIndex = currentIndex + direction;
+
+        if (newIndex >= 0 && newIndex < totalSlides) {
+          goToSlide(newIndex);
+        }
+      }
+
+      function goToSlide(index) {
+        const slideWidth = slider.offsetWidth;
+        slider.scrollTo({
+          left: slideWidth * index,
+          behavior: "smooth",
+        });
+      }
+
+      slider.addEventListener("scroll", updateDots);
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        const currentScroll = slider.scrollLeft;
+        const slideWidth = slider.offsetWidth;
+        const currentIndex = Math.round(currentScroll / slideWidth);
+
+        if (e.key === "ArrowLeft" && currentIndex > 0) {
+          goToSlide(currentIndex - 1);
+        } else if (e.key === "ArrowRight" && currentIndex < totalSlides - 1) {
+          goToSlide(currentIndex + 1);
+        }
+      });
+    </script>
+  </body>
+</html>

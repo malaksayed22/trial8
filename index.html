@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: url("assets/bg.jpg") fixed repeat;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c0813d;
+        padding: 20px;
+      }
+
+      .header img {
+        width: 100px;
+        height: auto;
+        margin-left: -20px;
+      }
+
+      .categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .category-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .category-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      }
+
+      .category-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      @media (max-width: 768px) {
+        .categories {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          padding: 20px;
+        }
+      }
+
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+
+      .loading-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loading-logo {
+        width: 120px;
+        height: auto;
+      }
+
+      .spinner {
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+
+      .spinner-circle {
+        position: absolute;
+        border: 3px solid transparent;
+        border-radius: 50%;
+        animation: spin 1.5s linear infinite;
+      }
+
+      .spinner-outer {
+        width: 80px;
+        height: 80px;
+        border-top-color: #c0813d;
+        border-right-color: #c0813d;
+      }
+
+      .spinner-inner {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        left: 15px;
+        border-top-color: rgba(192, 129, 61, 0.5);
+        border-left-color: rgba(192, 129, 61, 0.5);
+        animation-direction: reverse;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-screen" id="loadingScreen">
+      <img src="assets/logo.png" alt="Coffee&Co." class="loading-logo" />
+      <div class="spinner">
+        <div class="spinner-circle spinner-outer"></div>
+        <div class="spinner-circle spinner-inner"></div>
+      </div>
+    </div>
+
+    <div class="header">
+      <h1>Coffee&Co.</h1>
+      <img src="assets/logo.png" alt="" />
+    </div>
+
+    <div class="categories">
+      <div
+        class="category-card"
+        onclick="window.location.href = 'icedDrinks.html'"
+      >
+        <img src="assets/categories/icedDrinks.jpg" alt="IcedDrinks" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'frappe.html'">
+        <img src="assets/categories/frappe.jpg" alt="Frappe" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'hotDrinks.html'"
+      >
+        <img src="assets/categories/hotDrinks1.jpg" alt="HotDrinks" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'desserts.html'"
+      >
+        <img src="assets/categories/desserts1.jpg" alt="Dessert" />
+      </div>
+
+      <div
+        class="category-card"
+        onclick="window.location.href = 'bakeries.html'"
+      >
+        <img src="assets/categories/bakeries.jpg" alt="Bakery" />
+      </div>
+
+      <div
+        class="category-card"
+        onclick="window.location.href = 'breakfast.html'"
+      >
+        <img src="assets/categories/breakfast1.jpg" alt="Breakfast" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'matcha.html'">
+        <img src="assets/categories/matcha.jpg" alt="Matcha" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'smoothie.html'"
+      >
+        <img src="assets/categories/smoothie.jpg" alt="Smoothie" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'sunshine.html'"
+      >
+        <img loading="lazy" src="assets/categories/sunshine.jpg" alt="Sunshine" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'milkShake.html'"
+      >
+        <img loading="lazy" src="assets/categories/milkshake.jpg" alt="MilkShake" />
+      </div>
+
+      <div
+        class="category-card"
+        onclick="window.location.href = 'freshJuice.html'"
+      >
+        <img loading="lazy" src="assets/categories/freshjuice.jpg" alt="FreshJuice" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'mojito.html'">
+        <img loading="lazy" src="assets/categories/mojito.jpg" alt="Mojito" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'karkadeh.html'"
+      >
+        <img loading="lazy" src="assets/categories/karkadeh.jpg" alt="Karkadeh" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'boba.html'">
+        <img loading="lazy" src="assets/categories/boba.jpg" alt="Boba" />
+      </div>
+
+      <div
+        class="category-card"
+        onclick="window.location.href = 'hotChocolate.html'"
+      >
+        <img loading="lazy" src="assets/categories/hotChocolate.jpg" alt="HotChocolate" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'v60.html'">
+        <img loading="lazy" src="assets/categories/v60.jpg" alt="V60" />
+      </div>
+
+      <div
+        class="category-card"
+        onclick="window.location.href = 'turkishCoffe.html'"
+      >
+        <img loading="lazy" src="assets/categories/turkishcoffe.jpg" alt="TurkishCoffe" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'sahlab.html'">
+        <img loading="lazy" src="assets/categories/sahlab.jpg" alt="Sahlab" />
+      </div>
+      <div class="category-card" onclick="window.location.href = 'tea.html'">
+        <img loading="lazy" src="assets/categories/tea.jpg" alt="Tea" />
+      </div>
+      <div
+        class="category-card"
+        onclick="window.location.href = 'softDrinks.html'"
+      >
+        <img loading="lazy" src="assets/categories/softDrinks.jpg" alt="SoftDrinks" />
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+        document.getElementById("loadingScreen").classList.add("hidden");
+      });
+    </script>
+  </body>
+</html>
